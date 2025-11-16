@@ -1,4 +1,4 @@
-// eslint.config.mjs
+// @ts-nocheck
 import externalConfig from './code-quality-config/typescript/eslint.config.mjs'
 
 export default [

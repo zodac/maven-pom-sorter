@@ -3,6 +3,7 @@
 .vscode-test/
 
 # Build
+dist/
 node_modules/
 out/
 package-lock.json

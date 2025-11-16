@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -yqq --no-install-recommends \
     python3-dev \
     python-is-python3 \
     shfmt \
+    tree \
     vim \
     # VS Code/Electron dependencies for headless testing
     libasound2 \
@@ -46,9 +47,9 @@ RUN apt-get update && apt-get install -yqq --no-install-recommends \
     update-ca-certificates
 
 # Install NPM packages
-# COPY package.json .
 ENV PATH=node_modules/.bin:${PATH}
-# RUN mkdir -p /root/.npm/ && chown -R 1000:0 "/root/.npm" && npm install --include=dev
+COPY ./package.json ./package.json
+RUN mkdir -p /root/.npm/ && chown -R 1000:0 "/root/.npm" && npm install --include=dev
 
 COPY ./.devcontainer/config/.bashrc ./.devcontainer/config/.bash_completion /root/
 

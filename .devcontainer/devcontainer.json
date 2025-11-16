@@ -1,0 +1,127 @@
+{
+    "name": "[maven-pom-sorter] Dev Container",
+    "build": {
+        "context": "..",
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "editor.detectIndentation": false,
+                "editor.formatOnSave": false, // Only format files with formatters explicitly configured below
+                "editor.insertSpaces": true,
+                "editor.tabSize": 4,
+                "files.autoSave": "onFocusChange",
+                "files.insertFinalNewline": true,
+                "redhat.telemetry.enabled": false,
+                "remote.autoForwardPorts": false,
+                "remote.ignoreLocalPorts": [],
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "workbench.editor.enablePreview": false,
+                "[dockerfile]": {
+                    "editor.defaultFormatter": "ms-azuretools.vscode-containers",
+                    "editor.formatOnSave": true
+                },
+                "[github-actions-workflow]": {
+                    "editor.defaultFormatter": "redhat.vscode-yaml",
+                    "editor.formatOnSave": true,
+                    "editor.tabSize": 2,
+                    "yaml.format.printWidth": 150
+                },
+                "[gitignore]": {
+                    "editor.defaultFormatter": "lkrms.inifmt",
+                    "editor.formatOnSave": true
+                },
+                "[ignore]": {
+                    "editor.defaultFormatter": "lkrms.inifmt",
+                    "editor.formatOnSave": true
+                },
+                "[javascript]": {
+                    "editor.codeActionsOnSave": {
+                        "source.fixAll.eslint": "always"
+                    },
+                    "editor.defaultFormatter": "vscode.typescript-language-features",
+                    "editor.formatOnSave": true,
+                    "eslint.packageManager": "npm",
+                    "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+                    "eslint.workingDirectories": [{ "mode": "auto" }]
+                },
+                "[json]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode",
+                    "editor.formatOnSave": true,
+                    "prettier.printWidth": 150,
+                    "prettier.tabWidth": 4
+                },
+                "[jsonc]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode",
+                    "editor.formatOnSave": true,
+                    "prettier.printWidth": 150,
+                    "prettier.tabWidth": 4
+                },
+                "[markdown]": {
+                    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+                    "editor.formatOnSave": true,
+                    "markdownlint.configFile": "./code-quality-config/markdown/.markdownlint.json"
+                },
+                "[shellscript]": {
+                    "bashBeautify.tabSize": 4,
+                    "editor.defaultFormatter": "shakram02.bash-beautify",
+                    "editor.formatOnSave": true
+                },
+                "[typescript]": {
+                    "editor.codeActionsOnSave": {
+                        "source.fixAll.eslint": "always"
+                    },
+                    "editor.defaultFormatter": "vscode.typescript-language-features",
+                    "editor.formatOnSave": true,
+                    "eslint.packageManager": "npm",
+                    "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+                    "eslint.workingDirectories": [{ "mode": "auto" }]
+                },
+                "[xml]": {
+                    "editor.defaultFormatter": "redhat.vscode-xml",
+                    "editor.formatOnSave": true,
+                    "xml.format.closingBracketNewLine": false,
+                    "xml.format.enforceQuoteStyle": "preferred",
+                    "xml.format.maxLineWidth": 150,
+                    "xml.format.spaceBeforeEmptyCloseTag": true,
+                    "xml.format.splitAttributes": "alignWithFirstAttr",
+                    "xml.format.splitAttributesIndentSize": 4,
+                    "xml.format.xsiSchemaLocationSplit": "onPair",
+                    "xml.preferences.quoteStyle": "double"
+                },
+                "files.associations": {
+                    ".devcontainer/config/.bashrc": "shellscript",
+                    ".devcontainer/config/.bash_completion": "shellscript",
+                    "LICENSE": "plaintext",
+                    "VERSION": "plaintext"
+                }
+            },
+            "extensions": [
+                "davidanson.vscode-markdownlint",
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode",
+                "github.vscode-github-actions",
+                "lkrms.inifmt",
+                "ms-azuretools.vscode-docker",
+                "ms-vscode.extension-test-runner",
+                "redhat.vscode-xml",
+                "redhat.vscode-yaml",
+                "shakram02.bash-beautify",
+                "timonwong.shellcheck"
+            ]
+        }
+    },
+    "forwardPorts": [],
+    "mounts": [
+        "source=${localEnv:USERPROFILE}/.bash_history,target=/root/.bash_history,type=bind,consistency=cached",
+        "source=${localEnv:USERPROFILE}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached",
+        "source=${localEnv:USERPROFILE}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
+        "source=${localWorkspaceFolder},target=/workspace,type=bind",
+        "source=pom-orderer_node_modules,target=/workspace/node_modules,type=volume"
+    ],
+    "postCreateCommand": "chmod +x .devcontainer/scripts/start.sh && .devcontainer/scripts/start.sh",
+    "remoteUser": "root",
+    "userEnvProbe": "loginInteractiveShell",
+    "workspaceFolder": "/workspace"
+}

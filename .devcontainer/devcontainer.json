@@ -44,8 +44,7 @@
                     "editor.formatOnSave": true,
                     "eslint.packageManager": "npm",
                     "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
-                    "eslint.workingDirectories": [{ "mode": "auto" }],
-                    "javascript.format.semicolons": "remove"
+                    "eslint.workingDirectories": [{ "mode": "auto" }]
                 },
                 "[json]": {
                     "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -77,8 +76,7 @@
                     "editor.formatOnSave": true,
                     "eslint.packageManager": "npm",
                     "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
-                    "eslint.workingDirectories": [{ "mode": "auto" }],
-                    "typescript.format.semicolons": "remove"
+                    "eslint.workingDirectories": [{ "mode": "auto" }]
                 },
                 "[xml]": {
                     "editor.defaultFormatter": "redhat.vscode-xml",
@@ -123,7 +121,7 @@
         "source=${localEnv:USERPROFILE}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
         "source=${localWorkspaceFolder},target=/workspace,type=bind",
         "source=pom-orderer_node_modules,target=/workspace/node_modules,type=volume",
-        "source=vscode-history,target=/root/.vscode-server/data/User,type=volume"
+        "source=vscode-history,target=/root/.vscode-server/data/User"
     ],
     "postCreateCommand": "chmod +x /workspace/.devcontainer/scripts/start.sh && /workspace/.devcontainer/scripts/start.sh",
     "remoteUser": "root",

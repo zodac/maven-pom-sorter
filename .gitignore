@@ -7,6 +7,7 @@ dist/
 node_modules/
 out/
 package-lock.json
+pom.xml
 
 # Generated extension
 *.vsix

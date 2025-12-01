@@ -121,7 +121,7 @@
         "source=${localEnv:USERPROFILE}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
         "source=${localWorkspaceFolder},target=/workspace,type=bind",
         "source=pom-orderer_node_modules,target=/workspace/node_modules,type=volume",
-        "source=vscode-history,target=/root/.vscode-server/data/User"
+        "source=vscode-history,target=/root/.vscode-server/data/User,type=volume"
     ],
     "postCreateCommand": "chmod +x /workspace/.devcontainer/scripts/start.sh && /workspace/.devcontainer/scripts/start.sh",
     "remoteUser": "root",

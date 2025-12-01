@@ -1,26 +1,64 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from "vscode";
+import * as vscode from "vscode"
+import { PomSorter } from "./pom-sorter"
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext): void {
+const pomSorter = new PomSorter()
 
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
-    console.warn('Congratulations, your extension "maven-pom-sorter" is now active!');
+/**
+ * Main listener function for auto-save
+ */
+export function onWillSaveDocument(event: vscode.TextDocumentWillSaveEvent): void {
+    const document = event.document
+    if (!document.fileName.endsWith("pom.xml")) {
+        return
+    }
 
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with registerCommand
-    // The commandId parameter must match the command field in package.json
-    const disposable = vscode.commands.registerCommand("maven-pom-sorter.helloWorld", () => {
-        // The code you place here will be executed every time your command is executed
-        // Display a message box to the user
-        vscode.window.showInformationMessage("Hello World from maven-pom-sorter!");
-    });
+    const xmlText = document.getText()
+    const newXml = pomSorter.sort(xmlText)
 
-    context.subscriptions.push(disposable);
+    if (newXml !== xmlText) {
+        const fullRange = new vscode.Range(
+            document.positionAt(0),
+            document.positionAt(xmlText.length),
+        )
+        event.waitUntil(Promise.resolve([vscode.TextEdit.replace(fullRange, newXml)]))
+    }
 }
 
-// This method is called when your extension is deactivated
+/**
+ * Command for Command Palette
+ */
+async function orderActivePom(): Promise<void> {
+    const editor = vscode.window.activeTextEditor
+    if (!editor) {
+        return
+    }
+
+    const document = editor.document
+    if (!document.fileName.endsWith("pom.xml")) {
+        return
+    }
+
+    const xmlText = document.getText()
+    const newXml = pomSorter.sort(xmlText)
+
+    if (newXml !== xmlText) {
+        const fullRange = new vscode.Range(
+            document.positionAt(0),
+            document.positionAt(xmlText.length),
+        )
+        await editor.edit(editBuilder => editBuilder.replace(fullRange, newXml))
+        vscode.window.showInformationMessage("pom.xml sorted!")
+    }
+}
+
+/**
+ * VS Code activation
+ */
+export function activate(context: vscode.ExtensionContext): void {
+    context.subscriptions.push(
+        vscode.workspace.onWillSaveTextDocument(onWillSaveDocument),
+        vscode.commands.registerCommand("pom-sorter.sortPom", orderActivePom),
+    )
+}
+
 export function deactivate(): void { }
